@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        li{
+            list-style:none;
+        }
+        .containter{
+            margin: 0 auto;
+            width:1120px;
+            height:300px;
+            position:relative;
+        }
+        ul li{
+            width:1120px;
+            height:300px;
+            line-height: 300px;
+            text-align: center;
+            font-size: 100px;
+            position:absolute;
+            opacity: .6;
+        }
+        .containter ul li.active{
+            z-index: 2;
+            opacity: 1;
+         
+        }
+        .containter ul li.prev{
+            z-index: 1;
+        }
+        .containter ul{
+            position:absolute;
+            z-index: 0;
+        }
+        #btn{
+            width:100%;
+            height:40px;
+            position:absolute;
+            top:150px;
+            z-index: 1;
+        }
+        #btn span{
+            display:block;
+            width:40px;
+            height:40px;
+            line-height: 40px;
+            color:#fff;
+            text-align: center;
+            background: rgba(0,0,0,.3);
+        }
+        #btn span:first-child{
+            float: left;
+        }
+        #btn span:last-child{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="containter">
+        <ul id="list">
+            <li class="active" style="background:rgb(96, 96, 182)">1</li>
+            <li style="background:rgb(177, 250, 177)">2</li>
+            <li style="background:rgb(212, 58, 212)">3</li>
+            <li style="background:rgb(230, 50, 80)">4</li>
+            <li style="background:rgb(245, 234, 83)">5</li>
+        </ul>
+        <div id="btn">
+            <span><<</span>
+            <span>>></span>
+        </div>
+    </div>
+    <script src="move.js"></script>
+    <script>
+        let aLi = document.getElementById("list").children;
+        let aBtn = document.getElementById("btn").children;
+        let index = 0;
+        let prev = 0;
+        let moving = false;
+        aBtn[0].onclick = function(){
+            if(moving) return;
+            prev = index;
+            if(index == 0){
+                index = aLi.length - 1;
+            }else{
+                index--;
+            }
+            console.log(index,prev);
+            changeItem()
+        }
+
+        aBtn[1].onclick = function(){
+            if(moving) return;
+            prev = index;
+            if(index == aLi.length-1){
+                index = 0;
+            }else{
+                index++;
+            }
+            console.log(index,prev)
+            changeItem()
+        }
+        function changeItem(){
+            moving = true;
+            for(i=0;i<aLi.length;i++){
+                aLi[i].className = "";
+                // aLi[i].style.opacity = 0.6;
+            }
+            aLi[index].className ="active";
+            aLi[prev].className ="prev";
+
+            aLi[index].style.width = 0;
+            aLi[index].style.height = 0;
+            move(aLi[index],{
+                width:1120,
+                height:300
+            },function(){
+                moving = false;
+            })
+        }
+        setInterval( aBtn[1].onclick,3000)
+    </script>
+</body>
+</html>
