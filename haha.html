@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .main1{
+            width: 200px;
+            height: 200px;
+            background: #cff;
+        }
+    </style>
+     
+</head>
+<body>
+    <!-- <div class="box">
+        <ul>
+            <li v-for='item in list'>
+                <span>{{item}}</span>
+            </li>
+        </ul>
+    </div> -->
+    <div id="main">
+            <input type="number" v-model="w">
+            <input type="number" v-model="h"><br/>
+            <input type="range" min="0" max="255" v-model="r">
+            <input type="range" min="0" max="255" v-model="g">
+            <input type="range" min="0" max="255" v-model="b">
+            <div class="main1" v-bind:style="{width:w+'px',height:h+'px',background:color}">hh</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#main',
+            data:{
+                list:["aaa","abc","ddc"],
+                w:'',
+                h:'',
+                r:'0',
+                g:'0',
+                b:'0'
+            },
+            computed:{
+                color(){
+                    return `rgb(${this.r},${this.g},${this.b})`
+                }
+            }
+        })
+    </script>
+</body>
+</html>
